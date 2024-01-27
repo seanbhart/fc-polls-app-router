@@ -1,8 +1,8 @@
-import {kv} from "@vercel/kv";
-import {Poll} from "@/app/types";
-import {PollVoteForm} from "@/app/form";
+import { kv } from "@vercel/kv";
+import { Poll } from "@app/types";
+import { PollVoteForm } from "@app/form";
 import Head from "next/head";
-import {Metadata, ResolvingMetadata} from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 async function getPoll(id: string): Promise<Poll> {
     let nullPoll = {

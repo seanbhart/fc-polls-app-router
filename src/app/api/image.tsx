@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse  } from 'next';
 import sharp from 'sharp';
-import {Poll} from "@/app/types";
-import {kv} from "@vercel/kv";
+import { Poll } from "@app/types";
+import { kv } from "@vercel/kv";
 import satori from "satori";
 import { join } from 'path';
 import * as fs from "fs";

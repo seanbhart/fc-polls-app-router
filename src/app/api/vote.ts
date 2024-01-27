@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {Poll} from "@/app/types";
-import {kv} from "@vercel/kv";
-import {getSSLHubRpcClient, Message} from "@farcaster/hub-nodejs";
+import { Poll } from "@app/types";
+import { kv } from "@vercel/kv";
+import { getSSLHubRpcClient, Message } from "@farcaster/hub-nodejs";
 
 const HUB_URL = process.env['HUB_URL'] || "nemes.farcaster.xyz:2283"
 const client = getSSLHubRpcClient(HUB_URL);
