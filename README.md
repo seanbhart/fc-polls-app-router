@@ -6,8 +6,6 @@ This example lets you create a poll and have users vote on it. The FrameAction i
 so the votes cannot be spoofed, and the results are stored in a redis database. 
 
 
-## Demo
+## Updated Demo (App Router Version)
 
-- [https://fc-polls.vercel.app/](https://fc-polls.vercel.app/)
-
-
+- [https://fc-polls-app-router.vercel.app/](https://fc-polls-app-router.vercel.app/)
