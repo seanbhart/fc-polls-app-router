@@ -168,7 +168,8 @@ function PollOptions({poll, onChange} : {poll: Poll, onChange: (index: number) =
 function PollResults({poll} : {poll: Poll}) {
     return (
         <div className="mb-4">
-            <img src={`/api/image?id=${poll.id}&results=true&date=${Date.now()}`} alt='poll results'/>
+            {/* <img src={`/api/image?id=${poll.id}&results=true&date=${Date.now()}`} alt='poll results'/> */}
+            <img src={`/api/image?id=${poll.id}&results=true`} alt='poll results'/>
         </div>
     );
 }

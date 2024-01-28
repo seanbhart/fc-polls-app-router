@@ -1,4 +1,5 @@
-import type { NextApiRequest, NextApiResponse  } from 'next';
+import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import sharp from 'sharp';
 import { Poll } from "@app/types";
 import { kv } from "@vercel/kv";
@@ -9,22 +10,25 @@ import * as fs from "fs";
 const fontPath = join(process.cwd(), 'Roboto-Regular.ttf')
 let fontData = fs.readFileSync(fontPath)
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
+    revalidatePath(req.url)
+    console.log('IMAGE ROUTE')
     try {
-        const pollId = req.query['id']
+        const { searchParams } = new URL(req.url)
+        const pollId = searchParams.get('id')
         // const fid = parseInt(req.query['fid']?.toString() || '')
         if (!pollId) {
-            return res.status(400).send('Missing poll ID');
+            return new NextResponse(JSON.stringify({ message: 'Missing poll ID' }), { status: 400 })
         }
 
         let poll: Poll | null = await kv.hgetall(`poll:${pollId}`);
 
 
         if (!poll) {
-            return res.status(400).send('Missing poll ID');
+            return new NextResponse(JSON.stringify({ message: 'Missing poll ID' }), { status: 400 })
         }
 
-        const showResults = req.query['results'] === 'true'
+        const showResults = searchParams.get('results') === 'true'
         // let votedOption: number | null = null
         // if (showResults && fid > 0) {
         //     votedOption = await kv.hget(`poll:${pollId}:votes`, `${fid}`) as number
@@ -101,11 +105,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             .toBuffer();
 
         // Set the content type to PNG and send the response
-        res.setHeader('Content-Type', 'image/png');
-        res.setHeader('Cache-Control', 'max-age=10');
-        res.send(pngBuffer);
+        return new NextResponse(pngBuffer, { 
+            status: 200, 
+            headers: {
+                'Content-Type': 'image/png',
+                'Cache-Control': 'max-age=10',
+            }
+        })
+
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error generating image');
+        console.error(error)
+        return new NextResponse(JSON.stringify({ message: 'Error generating image' }), { status: 500 })
     }
 }
