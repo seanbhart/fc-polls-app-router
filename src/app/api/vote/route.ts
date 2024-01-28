@@ -48,8 +48,8 @@ export async function GET(req: NextRequest) {
             if (!poll) {
                 return new NextResponse(JSON.stringify({ message: 'Missing poll ID' }), { status: 400 })
             }
-            // const imageUrl = `${process.env.NEXT_PUBLIC_HOST}/api/image?id=${poll.id}&results=${results ? 'false': 'true'}&date=${Date.now()}${ fid > 0 ? `&fid=${fid}` : '' }`;
-            const imageUrl = `${process.env.NEXT_PUBLIC_HOST}/api/image?id=${poll.id}&results=${results ? 'false': 'true'}${ fid > 0 ? `&fid=${fid}` : '' }`;
+            const imageUrl = `${process.env.NEXT_PUBLIC_HOST}/api/image?id=${poll.id}&results=${results ? 'false': 'true'}&date=${Date.now()}${ fid > 0 ? `&fid=${fid}` : '' }`;
+            // const imageUrl = `${process.env.NEXT_PUBLIC_HOST}/api/image?id=${poll.id}&results=${results ? 'false': 'true'}${ fid > 0 ? `&fid=${fid}` : '' }`;
             let button1Text = "View Results";
             if (!voted && !results) {
                 button1Text = "Back"

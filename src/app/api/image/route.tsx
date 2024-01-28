@@ -12,7 +12,6 @@ let fontData = fs.readFileSync(fontPath)
 
 export async function GET(req: NextRequest) {
     revalidatePath(req.url)
-    console.log('IMAGE ROUTE')
     try {
         const { searchParams } = new URL(req.url)
         const pollId = searchParams.get('id')
